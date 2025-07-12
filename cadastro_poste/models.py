@@ -14,4 +14,31 @@ class Poste(models.Model):
     data_hora = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.problema} - {self.rua}, {self.numero} - {self.bairro}"
+        return f"{self.rua}, {self.numero} - {self.bairro}"
+
+
+class Lampada(models.Model):
+    TIPO_CHOICES = [
+        ('LED', 'LED'),
+        ('Vapor de Sódio', 'Vapor de Sódio'),
+        ('Fluorescente', 'Fluorescente'),
+        ('Incandescente', 'Incandescente'),
+        ('Halógena', 'Halógena'),
+        ('Outros', 'Outros'),
+    ]
+
+    STATUS_CHOICES = [
+        ('Funcionando', 'Funcionando'),
+        ('Queimada', 'Queimada'),
+        ('Substituída', 'Substituída'),
+    ]
+
+    poste = models.OneToOneField(Poste, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=30, choices=TIPO_CHOICES)
+    potencia = models.PositiveIntegerField(default=60, help_text="Potência em Watts")
+    vida_util_meses = models.PositiveIntegerField()
+    data_instalacao = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+
+    def __str__(self):
+        return f"{self.tipo} - {self.potencia}W no poste {self.poste.id}"
