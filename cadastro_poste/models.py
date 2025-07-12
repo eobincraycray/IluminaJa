@@ -3,9 +3,15 @@ from django.db import models
 class Poste(models.Model):
     problema = models.CharField(max_length=200)
     informacao = models.TextField()
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+
+    cep = models.CharField(max_length=9, default='Desconhecido')
+    rua = models.CharField(max_length=255, default='Desconhecido')
+    numero = models.CharField(max_length=10, default='Desconhecido')
+    bairro = models.CharField(max_length=100, default='Desconhecido')
+    cidade = models.CharField(max_length=100, default='Desconhecido')
+    estado = models.CharField(max_length=2, default='--')
+
     data_hora = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.problema} - ({self.latitude}, {self.longitude})"
+        return f"{self.problema} - {self.rua}, {self.numero} - {self.bairro}"

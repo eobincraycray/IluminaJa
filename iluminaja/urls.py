@@ -1,11 +1,7 @@
 from django.contrib import admin
-from django.urls import path
-from cadastro_poste import views
-
-app_name = 'cadastro_poste'
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.cadastrar_poste, name='formulario'),
-    path('sucesso/', views.sucesso, name='sucesso'),
+    path('', include('cadastro_poste.urls', namespace='cadastro_poste')),
 ]

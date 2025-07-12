@@ -86,19 +86,12 @@
       <textarea id="descricao" name="informacao" class="form-control" rows="5" maxlength="500" oninput="atualizarContador()" required></textarea>
       <div class="char-counter" id="contador">0/500</div>
     </div>
-
-    <!-- Geolocalização -->
-    <input type="hidden" name="latitude" id="latitude">
-    <input type="hidden" name="longitude" id="longitude">
   </form>
 </div>
 
 <!-- Botão e aviso -->
 <div class="d-flex flex-column align-items-center">
   <button type="button" class="btn-enviar" onclick="document.getElementById('formulario').submit();">Enviar</button>
-  <p class="info-text">
-    Sua localização será usada apenas para identificar o poste. Nenhuma outra informação pessoal será coletada.
-  </p>
 </div>
 
 <footer class="footer-custom text-white">
