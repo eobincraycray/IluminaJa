@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Lampada, Poste
 from django.urls import reverse
 from django.utils import timezone
+import json
 
 def lista_lampadas(request):
     lampadas = Lampada.objects.select_related('poste').all()
@@ -109,3 +110,14 @@ def endereco_poste(request):
 
 def sucesso(request):
     return render(request, 'cadastro_poste/sucesso.html')
+
+def lista_De_Postes(request):
+    return render(request, 'cadastro_poste/lista_poste.html')
+
+def mapa_view(request):
+    postes = [
+        {"lat": -14.223, "lng": -42.782, "titulo": "Poste 1"},
+        {"lat": -14.225, "lng": -42.780, "titulo": "Poste 2"},
+    ]
+    dados_postes_json = json.dumps(postes)  # transforma a lista em JSON
+    return render(request, "mapa_template.html", {"dados_postes_json": dados_postes_json})

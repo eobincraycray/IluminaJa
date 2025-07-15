@@ -1,5 +1,6 @@
+/* Reset básico e corpo */
 body {
-  padding-top: 6.25rem;
+  padding-top: 6.25rem; /* Espaço para o header fixo */
   font-family: 'Open Sans', sans-serif;
   background-color: #f8f9fa;
   display: flex;
@@ -8,32 +9,37 @@ body {
   margin: 0;
 }
 
+/* Faz o main crescer para ocupar o espaço disponível */
 main {
   flex: 1;
 }
 
+/* Centraliza texto da seção principal */
 .main-section {
   text-align: center;
 }
 
+/* Ícone de ajuda com efeito hover */
 .help-icon {
   transition: transform 0.3s ease;
   cursor: pointer;
 }
-
 .help-icon:hover {
   transform: scale(1.1);
 }
 
+/* Logo do header */
 .header-img {
   max-height: 2.3rem;
 }
 
+/* Texto de ajuda */
 .help-text {
   font-size: 0.9rem;
   color: #555;
 }
 
+/* Header fixo e estilizado */
 .header-wrapper {
   position: fixed;
   top: 0.625rem;
@@ -42,52 +48,58 @@ main {
   width: 95%;
   max-width: 62.5rem;
   z-index: 1030;
-  background-color: white;
+  background-color: #fff;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   border-radius: 0.75rem;
   padding: 0.625rem 1.25rem;
 }
 
+/* Títulos da seção principal */
 .main-section h1 {
   color: #4A90E2;
-  font-weight: bold;
-  font-size: x-large;
+  font-weight: 700;
+  font-size: 1.5rem; /* x-large é ambíguo, use valor fixo */
+  margin-bottom: 1rem;
 }
 
 .main-section p {
   color: #6E6E6E;
   font-weight: 400;
-  font-size: small;
+  font-size: 0.875rem; /* small aproximado */
 }
 
+/* Cabeçalho de formulários */
 .form-header {
   background-color: #4A90E2;
-  color: white;
+  color: #fff;
   padding: 0.5rem;
   border-radius: 0.75rem;
-  margin: 2rem auto 1rem;
+  margin: 2rem auto 1rem auto;
   max-width: 40rem;
   box-shadow: 0 0.4rem 0.5rem rgba(0,0,0,0.1);
   text-align: center;
 }
 
+/* Container dos formulários */
 .form-container {
-  background-color: white;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 0.75rem;
   max-width: 40rem;
-  margin: auto;
+  margin: 0 auto;
   box-shadow: 0 0.55rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
+/* Label dos inputs */
 .form-label {
   font-weight: 300;
   margin-bottom: 0.5rem;
   text-align: left;
   color: #6E6E6E;
-  font-size: smaller;
+  font-size: 0.8rem;
 }
 
+/* Select e textarea estilizados */
 select.form-select,
 textarea.form-control {
   margin-bottom: 1.5rem;
@@ -95,12 +107,18 @@ textarea.form-control {
   border: none;
   border-radius: 0.6rem;
   color: #000;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  resize: none; /* para textarea */
 }
 
 textarea.form-control:focus {
   background-color: #D9D9D9;
+  outline: none;
+  box-shadow: none;
 }
 
+/* Contador de caracteres no textarea */
 .char-counter {
   position: absolute;
   bottom: 0.4rem;
@@ -109,25 +127,28 @@ textarea.form-control:focus {
   color: #6E6E6E;
 }
 
+/* Botão enviar estilizado */
 .btn-enviar {
   display: block;
-  margin: 1.5rem auto 0.5rem;
+  margin: 1.5rem auto 0.5rem auto;
   padding: 0.75rem 2rem;
   background-color: #61E24A;
   border: none;
-  color: white;
+  color: #fff;
   font-weight: 600;
   border-radius: 0.5rem;
   transition: background-color 0.3s ease;
   width: 100%;
   max-width: 40rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .btn-enviar:hover {
   background-color: #218838;
 }
 
+/* Texto de informação */
 .info-text {
   font-size: 0.8rem;
   color: #6E6E6E;
@@ -135,14 +156,17 @@ textarea.form-control:focus {
   margin-top: 0.5rem;
 }
 
+/* Wrapper para textarea para posicionar contador */
 .textarea-wrapper {
   position: relative;
 }
 
+/* Desabilita redimensionamento manual no textarea */
 #descricao {
   resize: none;
 }
 
+/* Rodapé */
 .footer-custom {
   background-color: #d9d9d9;
   padding: 1rem 2rem;
@@ -150,22 +174,26 @@ textarea.form-control:focus {
   margin-top: auto;
 }
 
+/* Logo no rodapé */
 .footer-logo {
   max-height: 3.5rem;
 }
 
+/* Títulos do rodapé */
 .footer-title {
-  color: black;
+  color: #000;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
+/* Subtítulos e textos menores do rodapé */
 .footer-sub {
   color: #757575;
   margin: 0;
   font-size: 0.9rem;
 }
 
+/* Responsividade para telas pequenas */
 @media (max-width: 576px) {
   .footer-logo {
     max-height: 2.5rem;
@@ -177,5 +205,113 @@ textarea.form-control:focus {
 
   .footer-sub {
     font-size: 0.75rem;
+  }
+
+  /* Ajusta a altura do mapa para telas pequenas */
+  #map {
+    height: 300px;
+  }
+}
+
+/* Mapa Google */
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+/* Contêiner do mapa */
+.map-wrapper {
+  width: 95%;
+  max-width: 62.5rem;
+  margin: 0 auto 2rem auto;
+}
+/* ===== Container principal do gráfico ===== */
+.analisador-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Cabeçalho do gráfico ===== */
+.analisador-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.analisador-header h5 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.analisador-header small {
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* ===== Título e quantidade das barras ===== */
+.barra-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.barra-info span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.qtd-postes {
+  font-weight: 600 !important;
+  color: #222;
+}
+
+/* ===== Barra de progresso ===== */
+.progress {
+  background-color: #e0e0e0 !important;
+  height: 22px !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Cores das barras com transição ===== */
+.progress-bar.bg-success {
+  background-color: #4caf50 !important;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-bar.bg-warning {
+  background-color: #ffc107 !important;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-bar.bg-danger {
+  background-color: #f44336 !important;
+  transition: width 0.5s ease-in-out;
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 576px) {
+  .analisador-container {
+    padding: 1rem 1.25rem;
+    max-width: 100%;
+  }
+
+  .analisador-header h5 {
+    font-size: 1.1rem;
+  }
+
+  .barra-info span {
+    font-size: 0.9rem;
   }
 }
