@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from usuarios.models import PerfilUsuario
 
 
 User = get_user_model()
@@ -119,3 +120,4 @@ def excluir_usuario(request, user_id):
     if request.user.is_superuser:
         User.objects.filter(id=user_id).delete()
     return redirect('usuarios:lista_usuarios')
+

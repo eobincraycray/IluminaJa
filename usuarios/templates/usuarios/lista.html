@@ -36,7 +36,7 @@
       </div>
     </div>
   </header>
-
+  
 
 <div class="container">
   <h2 class="mb-4 text-primary text-center">Usuários</h2>
@@ -45,7 +45,9 @@
     <input type="text" name="busca" class="form-control me-2" placeholder="Buscar por nome ou e-mail" value="{{ busca }}">
     <button class="btn btn-primary">Buscar</button>
   </form>
+  
 
+  
   {% if messages %}
   <div class="container mt-3">
     {% for message in messages %}
@@ -86,6 +88,7 @@
         </td>
 
       </tr>
+      
 
 <div class="modal fade" id="modalEditar{{ user.id }}" tabindex="-1" aria-labelledby="modalLabel{{ user.id }}" aria-hidden="true">
   <div class="modal-dialog">
@@ -130,7 +133,13 @@
     </tbody>
   </table>
 </div>
-  <!-- Rodapé -->
+
+{% if request.user.is_staff or request.user.is_superuser %}
+  <div class="d-flex justify-content-end mt-4">
+    <a href="{% url 'usuarios:cadastro' %}" class="btn btn-success">+ Novo Usuário</a>
+  </div>
+{% endif %}
+
   <footer class="footer-custom text-white mt-5">
     <div class="footer-content d-flex flex-column flex-md-row justify-content-between align-items-start px-4 py-4">
       <div>
