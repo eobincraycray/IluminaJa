@@ -7,6 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cadastro_poste/', include('cadastro_poste.urls')),
     path('usuarios/', include('usuarios.urls')),
+    path('manutencao/', include('manutencao.urls')),
     path('', RedirectView.as_view(url='/cadastro_poste/', permanent=False)),
-
 ]
