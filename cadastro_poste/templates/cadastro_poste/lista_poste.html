@@ -130,43 +130,66 @@
 </section>
 
     <div class="container my-5">
-        <div class="card card-custom p-4">
-            <h4 class="mb-4 fw-bold">Acesso Rápido</h4>
+  <div class="card card-custom p-4">
+    <h4 class="mb-4 fw-bold">Acesso Rápido</h4>
 
-            {% for poste in postes %}
-            <div class="item-poste" data-id="{{ poste.id }}">
-            <!-- Ícone do Poste -->
-            <div class="icon-box">
-                <img src="{% static 'cadastro_poste/img/lampada.svg' %}" alt="Ícone Poste" class="img-fluid poste-img">
-            </div>
+    {% for poste in postes %}
+    <div class="item-poste" data-id="{{ poste.id }}">
+      <!-- Ícone do Poste -->
+      <div class="icon-box">
+        <img src="{% static 'cadastro_poste/img/lampada.svg' %}" alt="Ícone Poste" class="img-fluid poste-img">
+      </div>
 
-            <!-- Texto do Poste -->
-            <div class="text-box">
-                <p><strong>POSTE:</strong> {{ poste.problema }}</p>
-                <p><strong>Descrição:</strong> {{ poste.informacao }}</p>
-            </div>
+      <!-- Texto do Poste -->
+      <div class="text-box">
+        <p><strong>POSTE:</strong> {{ poste.problema }}</p>
+        <p><strong>Descrição:</strong> {{ poste.informacao }}</p>
+      </div>
 
-            <!-- Botões de ação -->
-            <div class="action-box bg-vermelho" onclick="handlePosteAction('cancelado', {{ poste.id }})">
-                <img src="{% static 'cadastro_poste/img/cancelar.svg' %}" alt="Cancelar" class="img-fluid" title="Cancelar">
-            </div>
+      <!-- Botões de ação -->
+      <div class="action-box bg-vermelho" onclick="handlePosteAction('cancelado', {{ poste.id }})">
+        <img src="{% static 'cadastro_poste/img/cancelar.svg' %}" alt="Cancelar" class="img-fluid" title="Cancelar">
+      </div>
 
-            <div class="action-box bg-amarelo" onclick="handlePosteAction('aguardando', {{ poste.id }})">
-                <img src="{% static 'cadastro_poste/img/esperar.svg' %}" alt="Aguardar" class="img-fluid" title="Aguardar">
-            </div>
+      <div class="action-box bg-amarelo" onclick="handlePosteAction('aguardando', {{ poste.id }})">
+        <img src="{% static 'cadastro_poste/img/esperar.svg' %}" alt="Aguardar" class="img-fluid" title="Aguardar">
+      </div>
 
-            <div class="action-box bg-verde" onclick="handlePosteAction('corrigido', {{ poste.id }})">
-                <img src="{% static 'cadastro_poste/img/confirmar.svg' %}" alt="Corrigir" class="img-fluid" title="Corrigido">
-            </div>
-            </div>
-            {% endfor %}
+      <div class="action-box bg-verde" onclick="handlePosteAction('corrigido', {{ poste.id }})">
+        <img src="{% static 'cadastro_poste/img/confirmar.svg' %}" alt="Corrigir" class="img-fluid" title="Corrigido">
+      </div>
 
-        </div>
+      <!-- NOVO BOTÃO: INFORMAÇÕES -->
+      <div class="action-box bg-azul" 
+           onclick="openInfoModal('{{ poste.problema }}', '{{ poste.informacao }}', '{{ poste.rua }}', '{{ poste.numero }}', '{{ poste.bairro }}', '{{ poste.cidade }}')"
+           title="Mais informações">
+        <img src="{% static 'cadastro_poste/img/informacao.svg' %}" alt="Informações" class="img-fluid">
+      </div>
     </div>
-
-
+    {% endfor %}
+  </div>
+</div>
 
   </main>
+
+
+  <!-- Modal de Informações -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="infoModalLabel">Detalhes do Poste</h5>
+        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Problema:</strong> <span id="modalProblema"></span></p>
+        <p><strong>Descrição:</strong> <span id="modalDescricao"></span></p>
+        <p><strong>Endereço:</strong> <span id="modalEndereco"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <!-- FOOTER -->
   <footer class="footer-custom text-white mt-auto w-100">

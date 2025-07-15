@@ -375,3 +375,7 @@ textarea.form-control:focus {
 .bg-vermelho {
   background-color: #f44336;
 }
+
+.bg-azul {
+  background-color: #007bff;
+}

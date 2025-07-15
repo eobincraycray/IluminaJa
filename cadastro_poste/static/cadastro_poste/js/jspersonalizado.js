@@ -48,3 +48,12 @@ function initMap() {
     console.info("Nenhum local para mostrar no mapa.");
   }
 }
+
+function openInfoModal(problema, descricao, rua, numero, bairro, cidade) {
+    document.getElementById('modalProblema').textContent = problema;
+    document.getElementById('modalDescricao').textContent = descricao;
+    document.getElementById('modalEndereco').textContent =
+      `${rua}, Nº ${numero}, ${bairro} - ${cidade}`;
+    const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+    modal.show();
+  }
