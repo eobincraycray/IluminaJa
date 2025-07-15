@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
+from usuarios import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cadastro_poste.urls', namespace='cadastro_poste')),
+    path('cadastro_poste/', include('cadastro_poste.urls')),
+    path('usuarios/', include('usuarios.urls')),
+
 ]

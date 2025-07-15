@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuários</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'cadastro_poste/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'cadastro_poste/css/index.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="p-4">
+<style>
+  .container {
+    padding-top: 4rem;
+  }
+
+  .container h2 {
+    text-align: center;
+  }
+</style>
+
+ <header class="header-wrapper">
+    <div class="row align-items-center">
+      <div class="col-6 text-start">
+        <img src="{% static 'cadastro_poste/img/logo.svg' %}" alt="Logo IluminaJá" class="header-img img-fluid">
+      </div>
+      <div class="col-6 text-end">
+        <div class="d-inline-block text-center">
+          <a href="ajuda.html" class="text-decoration-none">
+            <img src="{% static 'cadastro_poste/img/duvida.svg' %}" alt="Ajuda" class="header-img help-icon img-fluid">
+            <div class="help-text">Ajuda</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+<div class="container">
+  <h2 class="mb-4 text-primary text-center">Usuários</h2>
+
+  <form method="get" class="mb-3 d-flex">
+    <input type="text" name="busca" class="form-control me-2" placeholder="Buscar por nome ou e-mail" value="{{ busca }}">
+    <button class="btn btn-primary">Buscar</button>
+  </form>
+
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in usuarios %}
+      <tr>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar{{ user.id }}">
+              Editar
+            </button>
+
+            <form method="post" action="{% url 'usuarios:excluir_usuario' user.id %}" onsubmit="return confirm('Deseja mesmo excluir este usuário?');">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-success">Excluir</button>
+            </form>
+          </div>
+
+        </td>
+
+      </tr>
+
+<div class="modal fade" id="modalEditar{{ user.id }}" tabindex="-1" aria-labelledby="modalLabel{{ user.id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{% url 'usuarios:editar_usuario' user.id %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel{{ user.id }}">Editar Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nome{{ user.id }}" class="form-label">Nome</label>
+            <input type="text" name="nome" class="form-control" id="nome{{ user.id }}" value="{{ user.first_name }}" required>
+          </div>
+          <div class="mb-3">
+            <label for="email{{ user.id }}" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email{{ user.id }}" value="{{ user.email }}" required>
+          </div>
+          <div class="mb-3">
+            <label for="tipo_tecnico{{ user.id }}" class="form-label">Tipo Técnico</label>
+            <select name="tipo_tecnico" id="tipo_tecnico{{ user.id }}" class="form-select">
+              <option value="" {% if not user.perfilusuario or not user.perfilusuario.tipo_tecnico %}selected{% endif %}>Selecione</option>
+              <option value="tecnico" {% if user.perfilusuario and user.perfilusuario.tipo_tecnico == 'tecnico' %}selected{% endif %}>Técnico</option>
+              <option value="prefeitura" {% if user.perfilusuario and user.perfilusuario.tipo_tecnico == 'prefeitura' %}selected{% endif %}>Representante da Prefeitura</option>
+              <option value="outro" {% if user.perfilusuario and user.perfilusuario.tipo_tecnico == 'outro' %}selected{% endif %}>Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-inline">
+          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <!-- Rodapé -->
+  <footer class="footer-custom text-white mt-5">
+    <div class="footer-content d-flex flex-column flex-md-row justify-content-between align-items-start px-4 py-4">
+      <div>
+        <img src="{% static 'cadastro_poste/img/logo.svg' %}" alt="Logo" class="footer-logo">
+      </div>
+      <div class="d-flex gap-5">
+        <div>
+          <p class="footer-title">Política de Privacidade</p>
+          <p class="footer-title">Sobre Nós</p>
+        </div>
+        <div>
+          <p class="footer-title">Contato</p>
+          <p class="footer-sub">(77) 9.9999-9999</p>
+          <p class="footer-sub">Email@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+ 
+
+  
+</body>
+</html>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
