@@ -122,3 +122,14 @@ def mapa_view(request):
     ]
     dados_postes_json = json.dumps(postes)  # transforma a lista em JSON
     return render(request, "mapa_template.html", {"dados_postes_json": dados_postes_json})
+
+def lampada_por_poste(request, poste_id):
+    try:
+        lampada = Lampada.objects.get(poste_id=poste_id)
+        return JsonResponse({
+            'id': lampada.id,
+            'tipo': lampada.tipo,
+            'potencia': lampada.potencia
+        })
+    except Lampada.DoesNotExist:
+        return JsonResponse({})
