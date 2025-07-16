@@ -48,9 +48,9 @@
             {{ user.get_full_name|slice:":1" }}{{ user.get_full_name|slice:"1:2" }}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-            <li><a class="dropdown-item" href="#">Configurações</a></li>
+            <li><a class="dropdown-item" href="{% url 'usuarios:perfil' %}">Configurações</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Sair</a></li>
+            <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Sair</a></li>
           </ul>
         </div>
       </div>
