@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.hashers import check_password
 
 
 User = get_user_model()
@@ -20,17 +21,15 @@ def login_view(request):
             username = User.objects.get(email=email).username
         except User.DoesNotExist:
             messages.error(request, 'Usuário não encontrado.')
-
             return render(request, 'contas/login.html')
 
         user = authenticate(request, username=username, password=senha)
         if user is not None:
             login(request, user)
-            return redirect('usuarios:lista_usuarios')
 
+            return redirect('cadastro_poste:lista_poste')
         else:
             messages.error(request, 'Senha incorreta.')
-
             return render(request, 'contas/login.html')
 
     return render(request, 'contas/login.html')
