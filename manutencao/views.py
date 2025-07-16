@@ -94,3 +94,29 @@ def editar_manutencao(request, id):
     postes = Poste.objects.all()
     lampadas = Lampada.objects.all()
     return render(request, 'manutencao/editar.html', {'form': form, 'postes': postes, 'lampadas': lampadas})
+
+@login_required
+def registrar_correcao(request):
+    if request.method == 'POST':
+        poste_id = request.POST.get('poste_id')
+        lampada_id = request.POST.get('lampada_id')
+        tipo = request.POST.get('tipo')
+        descricao = request.POST.get('descricao')
+
+        poste = Poste.objects.get(id=poste_id)
+        lampada = Lampada.objects.get(id=lampada_id)
+
+        Manutencao.objects.create(
+            poste=poste,
+            lampada=lampada,
+            tipo=tipo,
+            descricao=descricao,
+            data_manutencao=timezone.now().date(),
+            status='concluido',
+            responsavel=request.user
+        )
+
+        poste.status = 3  # Corrigido
+        poste.save()
+
+        return redirect('cadastro_poste:lista_De_Postes')
