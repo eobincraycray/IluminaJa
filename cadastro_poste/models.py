@@ -1,6 +1,13 @@
 from django.db import models
 
 class Poste(models.Model):
+
+    STATUS_CHOICES = [
+        (0, 'Recém adicionado'),
+        (1, 'Aguardando'),
+        (2, 'Cancelado'),
+        (3, 'Corrigido'),
+    ]
     problema = models.CharField(max_length=200)
     informacao = models.TextField()
 
@@ -12,9 +19,13 @@ class Poste(models.Model):
     estado = models.CharField(max_length=2, default='--')
 
     data_hora = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=0)
 
     def __str__(self):
         return f"{self.rua}, {self.numero} - {self.bairro}"
+    
+    def get_status_display_label(self):
+        return dict(self.STATUS_CHOICES).get(self.status, "Desconhecido")
 
 
 class Lampada(models.Model):

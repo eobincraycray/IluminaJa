@@ -71,8 +71,9 @@
     </div>
 
     <!-- Seção de gráfico -->
-    <section class="main-section mb-5">
-    <h2 class="text-center mb-4">Gerenciador Rápido</h2>
+     <section class="main-section text-center mb-4">
+      <h1>Gerenciador Rápido</h1>
+    </section>
 
    <section class="main-section mb-5">
   <div class="analisador-container bg-white rounded shadow-sm p-4 mx-auto">
@@ -83,13 +84,10 @@
       <small id="data-atual" class="text-muted fw-medium"></small>
     </div>
 
-    <!-- Postes Corrigidos -->
-    <div class="mb-4">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span class="fw-semibold">Postes Corrigidos</span>
-        <span id="qtd-corrigidos" class="qtd-postes">0</span>
-      </div>
-      <div class="progress">
+    <!-- Linha: Corrigidos -->
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <span class="fw-semibold" style="width: 150px;">Postes Corrigidos</span>
+      <div class="progress flex-grow-1">
         <div id="barra-corrigidos"
              class="progress-bar bg-success"
              role="progressbar"
@@ -97,15 +95,13 @@
              aria-valuemin="0"
              aria-valuemax="100"></div>
       </div>
+      <span id="qtd-corrigidos" class="qtd-postes text-end" style="width: 50px;">0</span>
     </div>
 
-    <!-- Postes Aguardando -->
-    <div class="mb-4">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span class="fw-semibold">Postes Aguardando</span>
-        <span id="qtd-aguardando" class="qtd-postes">0</span>
-      </div>
-      <div class="progress">
+    <!-- Linha: Aguardando -->
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <span class="fw-semibold" style="width: 150px;">Postes Aguardando</span>
+      <div class="progress flex-grow-1">
         <div id="barra-aguardando"
              class="progress-bar bg-warning"
              role="progressbar"
@@ -113,15 +109,13 @@
              aria-valuemin="0"
              aria-valuemax="100"></div>
       </div>
+      <span id="qtd-aguardando" class="qtd-postes text-end" style="width: 50px;">0</span>
     </div>
 
-    <!-- Postes Cancelados -->
-    <div>
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span class="fw-semibold">Postes Cancelados</span>
-        <span id="qtd-cancelados" class="qtd-postes">0</span>
-      </div>
-      <div class="progress">
+    <!-- Linha: Cancelados -->
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <span class="fw-semibold" style="width: 150px;">Postes Cancelados</span>
+      <div class="progress flex-grow-1">
         <div id="barra-cancelados"
              class="progress-bar bg-danger"
              role="progressbar"
@@ -129,14 +123,73 @@
              aria-valuemin="0"
              aria-valuemax="100"></div>
       </div>
+      <span id="qtd-cancelados" class="qtd-postes text-end" style="width: 50px;">0</span>
     </div>
 
   </div>
 </section>
 
+    <div class="container my-5">
+  <div class="card card-custom p-4">
+    <h4 class="mb-4 fw-bold">Acesso Rápido</h4>
 
+    {% for poste in postes %}
+    <div class="item-poste" data-id="{{ poste.id }}">
+      <!-- Ícone do Poste -->
+      <div class="icon-box">
+        <img src="{% static 'cadastro_poste/img/lampada.svg' %}" alt="Ícone Poste" class="img-fluid poste-img">
+      </div>
+
+      <!-- Texto do Poste -->
+      <div class="text-box">
+        <p><strong>POSTE:</strong> {{ poste.problema }}</p>
+        <p><strong>Descrição:</strong> {{ poste.informacao }}</p>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="action-box bg-vermelho" onclick="handlePosteAction('cancelado', {{ poste.id }})">
+        <img src="{% static 'cadastro_poste/img/cancelar.svg' %}" alt="Cancelar" class="img-fluid" title="Cancelar">
+      </div>
+
+      <div class="action-box bg-amarelo" onclick="handlePosteAction('aguardando', {{ poste.id }})">
+        <img src="{% static 'cadastro_poste/img/esperar.svg' %}" alt="Aguardar" class="img-fluid" title="Aguardar">
+      </div>
+
+      <div class="action-box bg-verde" onclick="handlePosteAction('corrigido', {{ poste.id }})">
+        <img src="{% static 'cadastro_poste/img/confirmar.svg' %}" alt="Corrigir" class="img-fluid" title="Corrigido">
+      </div>
+
+      <!-- NOVO BOTÃO: INFORMAÇÕES -->
+      <div class="action-box bg-azul" 
+           onclick="openInfoModal('{{ poste.problema }}', '{{ poste.informacao }}', '{{ poste.rua }}', '{{ poste.numero }}', '{{ poste.bairro }}', '{{ poste.cidade }}')"
+           title="Mais informações">
+        <img src="{% static 'cadastro_poste/img/informacao.svg' %}" alt="Informações" class="img-fluid">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 
   </main>
+
+
+  <!-- Modal de Informações -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="infoModalLabel">Detalhes do Poste</h5>
+        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Problema:</strong> <span id="modalProblema"></span></p>
+        <p><strong>Descrição:</strong> <span id="modalDescricao"></span></p>
+        <p><strong>Endereço:</strong> <span id="modalEndereco"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <!-- FOOTER -->
   <footer class="footer-custom text-white mt-auto w-100">
@@ -161,5 +214,15 @@
   <!-- SCRIPTS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  function openInfoModal(problema, descricao, rua, numero, bairro, cidade) {
+    document.getElementById('modalProblema').textContent = problema;
+    document.getElementById('modalDescricao').textContent = descricao;
+    document.getElementById('modalEndereco').textContent =
+      `${rua}, Nº ${numero}, ${bairro} - ${cidade}`;
+    const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+    modal.show();
+  }
+</script>
 </body>
 </html>

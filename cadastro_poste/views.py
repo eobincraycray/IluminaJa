@@ -112,7 +112,8 @@ def sucesso(request):
     return render(request, 'cadastro_poste/sucesso.html')
 
 def lista_De_Postes(request):
-    return render(request, 'cadastro_poste/lista_poste.html')
+    postes = Poste.objects.all().order_by('-id')[:5] 
+    return render(request, 'cadastro_poste/lista_poste.html', {'postes': postes})
 
 def mapa_view(request):
     postes = [
