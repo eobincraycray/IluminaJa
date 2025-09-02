@@ -8,4 +8,5 @@ urlpatterns = [
     path('criar/', views.criar_manutencao, name='criar_manutencao'),
     path('excluir/<int:id>/', views.excluir_manutencao, name='excluir_manutencao'),
     path('editar/<int:id>/', views.editar_manutencao, name='editar_manutencao'),
+    path('registrar-correcao/', views.registrar_correcao, name='registrar_correcao'),
 ]
